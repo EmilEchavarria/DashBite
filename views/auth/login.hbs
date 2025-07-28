@@ -1,0 +1,130 @@
+<div class="login-background font-[Poppins]">
+  <div class="login-content rounded-lg shadow-lg p-8 space-y-10 max-w-xl w-full">
+    <div class="text-center space-y-4">
+<h2 class="mt-6 mb-8 text-5xl font-light text-white tracking-wide drop-shadow-lg">
+  Inicia sesión en tu cuenta
+</h2>
+
+
+      <img src="/images/login/logolighttransparent.png" alt="Logo de App" class="mx-auto h-20 w-auto">
+
+<p class="text-sm text-gray-200 italic">
+  Del antojo al bocado en segundos.
+</p>
+
+    </div>
+
+    {{#if messages.error}}
+      <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md" role="alert">
+        {{messages.error}}
+      </div>
+    {{/if}}
+
+    <form class="space-y-6" action="/auth/login" method="POST" novalidate>
+      <!-- Email -->
+      <div class="relative">
+        <label for="email" class="block text-sm font-semibold text-white">
+          Correo electrónico o nombre de usuario
+        </label>
+        <div class="mt-1 relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <input
+            id="email"
+            name="email"
+            type="text"
+            required
+            autofocus
+            autocomplete="username"
+            placeholder="ejemplo@correo.com"
+            class="pl-10 block w-full rounded-[15px] border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-black-500 focus:ring-2 focus:ring-black-400 focus:outline-none transition"
+          />
+          <div class="text-right mt-2">
+  <a href="/auth/forgot-email" class="text-[14px] text-white hover:text-indigo-100">
+    ¿Olvidaste tu correo electrónico?
+  </a>
+</div>
+
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="relative">
+        <label for="password" class="block text-sm font-semibold text-white">
+          Contraseña
+        </label>
+        <div class="mt-1 relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autocomplete="current-password"
+            placeholder="••••••••"
+            class="pl-10 block w-full rounded-[15px] border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
+          />
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <label class="flex items-center space-x-2 text-sm text-white cursor-pointer select-none">
+          <input
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+          <span>Recuérdame</span>
+        </label>
+
+        <div class="text-sm">
+          <a href="/auth/forgot-password" class="font-medium text-white hover:text-indigo-100">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-3 rounded-[15px] bg-[#C1121F] text-white font-semibold shadow hover:bg-[#a8101a] focus:outline-none focus:ring-4 focus:ring-red-300 transition"
+      >
+        Iniciar sesión
+      </button>
+    </form>
+
+    <div class="mt-10 text-center text-gray-300">
+      <span>O regístrate como</span>
+    </div>
+
+    <div class="mt-4 grid grid-cols-2 gap-4">
+      <a
+        href="/auth/register/client"
+        class="block py-3 text-center rounded-[15px] border border-gray-300 bg-white text-gray-800 font-medium shadow hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+      >
+        Cliente/Delivery
+      </a>
+      <a
+        href="/auth/register/commerce"
+        class="block py-3 text-center rounded-[15px] border border-gray-300 bg-white text-gray-800 font-medium shadow hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+      >
+        Comercio
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        e.preventDefault();
+        alert('Todos los campos son requeridos');
+      }
+    });
+  </script>
+</div>

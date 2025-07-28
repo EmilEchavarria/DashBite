@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AppCenar</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  integrity="sha512-1cXz8uFqEe5NCYk6sXzZQbnDfpCeUwUjKYX+XnFFRW1RTNK9dfzHJME1QYO+jtpMluIDcykBgGX+qZkMY2fT9g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+
+  <!-- Enlace a tu CSS personalizado -->
+  <link href="/css/style.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  {{> header }}
+
+  <main class="flex-grow container mx-auto px-4 py-6">
+    {{{body}}}
+  </main>
+
+  {{> footer }}
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
