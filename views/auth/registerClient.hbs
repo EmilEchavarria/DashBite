@@ -1,0 +1,149 @@
+<div class="login-background font-[Poppins]">
+  <div class="login-content rounded-lg shadow-lg p-8 space-y-10 max-w-xl w-full">
+    <div class="text-center space-y-4">
+      <h2 class="mt-6 mb-8 text-5xl font-light text-white tracking-wide drop-shadow-lg">
+        Crea tu cuenta
+      </h2>
+
+      <img src="/images/login/logolighttransparent.png" alt="Logo de App" class="mx-auto h-20 w-auto">
+
+      <p class="text-sm text-gray-200 italic">
+        Del antojo al bocado en segundos.
+      </p>
+    </div>
+
+    {{#if messages.error}}
+      <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md" role="alert">
+        {{messages.error}}
+      </div>
+    {{/if}}
+
+    <form class="space-y-6" action="/auth/register" method="POST" novalidate>
+      <!-- Nombre -->
+      <div class="relative">
+        <label for="name" class="block text-sm font-semibold text-white">
+          Nombre completo
+        </label>
+        <div class="mt-1 relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-user"></i>
+          </span>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autocomplete="name"
+            placeholder="Juan Pérez"
+            class="pl-10 block w-full rounded-[15px] border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-black-500 focus:ring-2 focus:ring-black-400 focus:outline-none transition"
+          />
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div class="relative">
+        <label for="email" class="block text-sm font-semibold text-white">
+          Correo electrónico
+        </label>
+        <div class="mt-1 relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="ejemplo@correo.com"
+            class="pl-10 block w-full rounded-[15px] border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-black-500 focus:ring-2 focus:ring-black-400 focus:outline-none transition"
+          />
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="relative">
+        <label for="password" class="block text-sm font-semibold text-white">
+          Contraseña
+        </label>
+        <div class="mt-1 relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            autocomplete="new-password"
+            placeholder="••••••••"
+            class="pl-10 block w-full rounded-[15px] border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
+          />
+        </div>
+      </div>
+
+      <!-- Confirmar Contraseña -->
+      <div class="relative">
+        <label for="confirm-password" class="block text-sm font-semibold text-white">
+          Confirmar contraseña
+        </label>
+        <div class="mt-1 relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input
+            id="confirm-password"
+            name="confirmPassword"
+            type="password"
+            required
+            placeholder="••••••••"
+            class="pl-10 block w-full rounded-[15px] border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition"
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-3 rounded-[15px] bg-[#C1121F] text-white font-semibold shadow hover:bg-[#a8101a] focus:outline-none focus:ring-4 focus:ring-red-300 transition"
+      >
+        Registrarse
+      </button>
+    </form>
+
+    <div class="flex gap-4 justify-center">
+      <button type="button" class="py-3 px-5 rounded-[15px] bg-white text-white font-semibold shadow flex items-center justify-center gap-3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png" alt="Google logo" 
+        width="28" height="28" class="block"/>
+      </button>
+      <button type="button" class="py-3 px-5 rounded-[15px] bg-white text-white font-semibold shadow flex items-center justify-center gap-3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/1024px-2021_Facebook_icon.svg.png" alt="Facebook logo" 
+        width="28" height="28" class="block"/>
+      </button>
+      <button type="button" class="py-3 px-5 rounded-[15px] bg-white text-white font-semiblod shadow flex items-center justify-center gap-3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/500px-Apple_logo_black.svg.png" alt="Apple logo"
+        width="28" height="28" class="block"/> 
+      </button>
+    </div>
+
+    <div class="text-center pt-6 text-white">
+      <p>¿Ya tienes una cuenta? <a href="/auth/login" class="underline hover:text-indigo-100">Inicia sesión</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirm-password').value.trim();
+
+      if (!name || !email || !password || !confirmPassword) {
+        e.preventDefault();
+        alert('Todos los campos son requeridos');
+      } else if (password !== confirmPassword) {
+        e.preventDefault();
+        alert('Las contraseñas no coinciden');
+      }
+    });
+  </script>
+</div>
