@@ -4,10 +4,19 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const passport = require('passport');
+const flash = require('connect-flash');
+const helmet = require('helmet');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 require('./config/passport'); // configuración de passport
 
 const app = express();
+
+// Seguridad y headers
+app.use(helmet());
+app.use(cors());
+app.use(cookieParser());
 
 // Configuración de handlebars
 app.engine('.hbs', exphbs.engine({
@@ -19,35 +28,37 @@ app.engine('.hbs', exphbs.engine({
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware para servir archivos estáticos
+// Archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware para parsear formularios y JSON
+// Formularios y JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Middleware para soportar PUT y DELETE desde formularios
+// Método override (PUT y DELETE desde formularios)
 app.use(methodOverride('_method'));
 
-// Configuración de sesión
+// Sesión
 app.use(session({
-  secret: 'secretKey',  // mejor poner esta clave en .env y no hardcodear
+  secret: process.env.SESSION_SECRET || 'secretKey',  // No hardcoded
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 // 1 día, ajusta según necesidad
+    maxAge: 1000 * 60 * 60 * 24 // 1 día
   }
 }));
 
-// Inicialización de Passport y sesión
+// Flash messages y Passport
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware para pasar datos de usuario y mensajes flash a todas las vistas
+// Variables globales
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
-  res.locals.messages = req.session.messages || {};
-  delete req.session.messages; // limpiar mensajes después de mostrarlos
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   next();
 });
 
